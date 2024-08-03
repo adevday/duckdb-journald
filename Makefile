@@ -1,8 +1,12 @@
 PROJ_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 # Configuration of extension
-EXT_NAME=quack
+EXT_NAME=journald
 EXT_CONFIG=${PROJ_DIR}extension_config.cmake
 
 # Include the Makefile from extension-ci-tools
 include extension-ci-tools/makefiles/duckdb_extension.Makefile
+
+release:
+	apt install -y autoconf libsystemd-dev
+	$(MAKE) -f extension-ci-tools/makefiles/duckdb_extension.Makefile $@
